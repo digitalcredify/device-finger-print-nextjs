@@ -2,7 +2,7 @@
 
 ## Introdução
 
-Este repositório contém um exemplo de implementação para capturar a impressão digital do dispositivo (Device Fingerprint) utilizando Next.js. O código faz uso da biblioteca FingerprintJS e envia os dados coletados para a plataforma da Credify. 
+Este repositório contém um exemplo de implementação para capturar a impressão digital do dispositivo (Device Fingerprint) utilizando Next.js. O código faz uso da biblioteca FingerprintJS e envia os dados coletados para a plataforma da Credify.
 
 ## Requisitos
 
@@ -19,7 +19,7 @@ Entre em contato com a equipe da Credify para solicitar sua access key. Esta key
 Adicione o código abaixo à sua aplicação Next.js para capturar a impressão digital do dispositivo e enviar os dados para a plataforma da Credify.
 
 ```javascript
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
@@ -39,11 +39,13 @@ export default function Home() {
         // Este é o identificador do visitante:
         const visitorId = result.visitorId;
         const accesskey = "your-access-key"; // Peça seu accesskey para equipe Credify
+        const action = "action-to-call-api"; // Descrição do momento da chamada: "login", "cadastro", "consulta", etc.
         const bodyParams = {
           visitorId,
           accesskey,
+          action,
           document: "document-to-identify-the-client",
-          tipoDocument: "type-of-document", // CPF: "1", CNPJ: "2", CNH: "3", RG: "4",
+          tipoDocument: "type-of-document", // Opções: "CPF", "CNPJ", "CNH", "RG" ou "OUTROS"
         };
 
         // Enviar os dados para a Credify
@@ -73,18 +75,15 @@ export default function Home() {
 ### Parâmetros do Código
 
 - **accesskey**: Substitua `"your-access-key"` pela access key fornecida pela equipe da Credify.
+- **action**: Descreva a ação que está sendo realizada quando a chamada à API é feita, como `"login"`, `"cadastro"`, `"consulta"`, etc.
 - **document**: Informe o documento do usuário que está acessando a plataforma.
-- **tipoDocument**: Informe o tipo de documento utilizando os seguintes códigos:
-  - CPF: `"1"`
-  - CNPJ: `"2"`
-  - CNH: `"3"`
-  - RG: `"4"`
+- **tipoDocument**: Informe o tipo de documento utilizando uma das seguintes opções: `"CPF"`, `"CNPJ"`, `"CNH"`, `"RG"`, ou `"OUTROS"`.
 
 ### Explicação do Código
 
 1. **Carregamento do FingerprintJS**: O código importa a biblioteca FingerprintJS e a inicializa dentro do hook `useEffect` do React, que é executado quando o componente é montado.
 2. **Obtenção do Identificador do Visitante**: O identificador único do visitante é obtido e armazenado na variável `visitorId`.
-3. **Criação dos Parâmetros do Corpo da Requisição**: Um objeto `bodyParams` é criado contendo `visitorId`, `accesskey`, `document` e `tipoDocument`.
+3. **Criação dos Parâmetros do Corpo da Requisição**: Um objeto `bodyParams` é criado contendo `visitorId`, `accesskey`, `action`, `document` e `tipoDocument`.
 4. **Envio dos Dados para a Credify**: Utilizando Axios, os dados são enviados para o endpoint da Credify.
 
 ## Contato

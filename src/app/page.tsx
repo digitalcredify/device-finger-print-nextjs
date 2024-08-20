@@ -17,11 +17,13 @@ export default function Home() {
       // Este é o identificador do visitante:
       const visitorId = result.visitorId;
       const accesskey = "your-access-key"; // Peça seu accesskey para equipe Credify
+      const action = "action-to-call-api"; // descrição do momento em que a chamada será feita, exemplo:( "login", "cadastro", "consulta", etc)
       const bodyParams = {
         visitorId,
         accesskey,
+        action,
         document: "document-to-identify-the-client",
-          tipoDocument: "type-of-document", // CPF: "1", CNPJ: "2", CNH: "3", RG: "4",
+        tipoDocument: "type-of-document", // Opções: "CPF", "CNPJ", "CNH", "RG" ou "OUTROS"
       };
       axios
         .post(`https://back.credify.com.br/device-finger-print`, bodyParams)
